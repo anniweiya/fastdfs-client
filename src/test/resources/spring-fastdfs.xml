@@ -24,7 +24,7 @@
     <!--HTTP访问服务的端口号-->
     <property name="g_tracker_http_port" value="8080"/>
     <!--nginx的对外访问地址，如果没有端口号，将取g_tracker_http_port配置的端口号 ","逗号分隔-->
-    <property name="nginx_address" value="127.0.0.1.:8080"/>
+    <property name="nginx_address" value="127.0.0.1:8080"/>
   </bean>
 
   <!--注入模板类-->
