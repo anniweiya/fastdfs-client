@@ -43,3 +43,42 @@ FastDFS连接池
 
 </beans>
 ```
+
+## spring boot 
+```
+## application.yml
+
+fastdfs:
+  g_connect_timeout: 60
+  g_network_timeout: 80
+  g_anti_steal_token: false
+  poolConfig:
+    maxTotal: 100
+    maxIdle: 10
+  protocol: http://
+  tracker_servers: 127.0.0.1:22122
+  g_tracker_http_port: 8080
+  nginx_address: 127.0.0.1:80
+  
+  
+@Configuration
+public class FastDfsConfig {
+
+    public static final String ROOT_CONFIG_PREFIX = "fastdfs";
+
+    @Resource
+    private FastDFSTemplateFactory fastDFSFactory;
+
+    @Bean(initMethod = "init")
+    @ConfigurationProperties(prefix = ROOT_CONFIG_PREFIX)
+    public FastDFSTemplateFactory fastDFSFactory() {
+        return new FastDFSTemplateFactory();
+    }
+
+    @Bean
+    public FastDFSTemplate fastDFSTemplate() {
+        return new FastDFSTemplate(fastDFSFactory);
+    }
+
+}
+```
