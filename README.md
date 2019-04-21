@@ -82,3 +82,29 @@ public class FastDfsConfig {
 
 }
 ```
+
+如需要缩略图大小
+可以参考nginx配置image_filter 
+```
+       location ~/group1/M00 {
+            alias /fastdfs/storage/data;
+            ngx_fastdfs_module;
+			set $flag '';
+			if ($args ~* "width=([1-9]\d*)") {
+                                set $width $1;
+				set $flag "${flag}A";
+			}
+			if ($args ~* "height=([1-9]\d*)") {
+                                set $height $1;
+				set $flag "${flag}B";
+			}
+			if ($flag != AB){
+				set $height 9999;
+				set $width 9999;
+			}
+			image_filter resize $width $height; 
+        }
+
+```
+然后在前端控制请求参数http://localhost/xxx.png?&width=100&height=100
+		
